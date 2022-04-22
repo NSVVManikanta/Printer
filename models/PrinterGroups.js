@@ -1,4 +1,5 @@
 
+
 var  commonHelper = require('../Helper');
 module.exports = (sequelize,Sequelize)=>{
 const printerGroups= sequelize.define(
@@ -45,8 +46,13 @@ const printerGroups= sequelize.define(
     updatedBy:{
         type: Sequelize.INTEGER,
         allowNull : false,
-        field:'D9',
-    }
+        field:'c9',
+    },
+    activeStatus:{
+        type : Sequelize.BOOLEAN,
+        allowNull : false,
+        field:'c10',
+    },
    
 },
 {
@@ -71,3 +77,4 @@ printerGroups.hasMany(printerGroupTriggers,{ foreignKey: 'printerGroupId' });
 printerGroupTriggers.belongsTo(printerGroups);
 return printerGroups;
 }
+
