@@ -1,6 +1,6 @@
 const printerGroups = require('../models/PrinterGroups');
 const printerGroupTriggers = require('../models/PrinterGroupTriggers');
-const { sequelize } = require("../models");
+const { sequelize } = require("../models/PrinterGroups");
 const Joi = require("joi");
 
 //Create Printer
@@ -57,22 +57,43 @@ const list = async (req, res) => {
   //Update Printer
   const update = async (req, res) => {
     try {
-        const { albumId } = req.params;
-         await albums.update(
+         await printerGroups.update(
           {
             title: req.body.title,
-            year: req.body.year,
+            description: req.body.description,
+            printType: req.body.printType,
           },
-          { where: { id: albumId } }
+          { where: { id: printerGroupId } }
         );
         res.status(200).send({
           title:req.body.title,
-          year: req.body.year
+          description: req.body.description,
+          printType: req.body.printType,
         });
     } catch (error) {
       console.log(error);
-      res.status(404).send({ error: "The song does not update." });
+      res.status(404).send({ error: "The Printer does not update." });
     }
 };
 
-module.exports = { create,list,update}
+//update trigger
+const updateTrigger = async (req, res) => {
+    try {
+        const Id = req.params;
+         await printerGroupTriggers.update(
+          {
+            trigger: req.body.title,
+            orderType: req.body.orderType,
+          },
+          { where: { id: Id} }
+        );
+        res.status(200).send({
+          trigger:req.body.trigger,
+          orderType: req.body.printType,
+        });
+    } catch (error) {
+      console.log(error);
+      res.status(404).send({ error: "The Printer does not update." });
+    }
+};
+module.exports = { create,list,update,updateTrigger};
